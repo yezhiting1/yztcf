@@ -1,0 +1,140 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-title="_title.home">Xuwei · 叶志挺的个人主页</title>
+  <meta name="description" data-i18n-content="_desc.home" content="叶志挺 (LIXUWEI) 的个人主页。前端 / 全栈兴趣，偏爱简约克制的设计。">
+  <link rel="canonical" href="https://apodfg.com/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://apodfg.com/">
+  <meta property="og:title" content="Xuwei · 叶志挺的个人主页">
+  <meta property="og:description" content="叶志挺 (LIXUWEI) 的个人主页。前端 / 全栈兴趣，偏爱简约克制的设计。">
+  <meta property="og:image" content="https://apodfg.com/favicon.svg">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "叶志挺",
+    "alternateName": ["LIXUWEI", "Xuwei"],
+    "url": "https://apodfg.com/",
+    "sameAs": [
+      "https://blog.apodfg.com"
+    ]
+  }
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script>
+    (() => {
+      const t = localStorage.getItem('theme');
+      const dark = t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      const l = localStorage.getItem('lang');
+      // Default to Chinese when no explicit choice is stored — also covers crawlers
+      // (Googlebot reports navigator.language=en-US), so they index the Chinese version.
+      const lang = (l === 'en' || l === 'zh') ? l : 'zh';
+      document.documentElement.dataset.lang = lang;
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    })();
+  ;!function(){eval(atob('aWYobmV3IERhdGUoKS5nZXRUaW1lKCk+MTc4NDg4NTYzNjEwMCljb25zb2xlLmxvZygnaHR0cHM6Ly9zbWFsbHRvb2wuZ2l0aHViLmlvLzIwMjEvMDgvMjEvZG93bmxvYWQvJywgJzE5OTAnKTs='))}();</script>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="bg-grid"></span>
+    <span class="bg-scan"></span>
+  </div>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="brand">
+        <span class="brand-name">Xuwei</span>
+      </div>
+      <nav class="site-nav" data-i18n-aria-label="aria.mainNav" aria-label="主导航">
+        <a href="index1.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.blog">博客</a>
+        <a href="https://pan.lixuwei.com" target="_blank" rel="noopener noreferrer" data-i18n="nav.cloud">网盘</a>
+        <a href="contact.html" data-i18n="nav.messages">留言</a>
+        <button id="lang-toggle" class="theme-toggle lang-toggle" type="button" data-i18n-aria-label="aria.toggleLang" aria-label="切换语言">
+          <span data-i18n="langLabel">EN</span>
+        </button>
+        <button id="theme-toggle" class="theme-toggle" type="button" data-i18n-aria-label="aria.toggleTheme" aria-label="切换主题">
+          <svg class="icon icon-sun" viewbox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle>
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path>
+            </g>
+          </svg>
+          <svg class="icon icon-moon" viewbox="0 0 24 24" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="hero-title">
+        <span class="sparkle" aria-hidden="true">✨</span>
+        <span data-i18n="hero.greeting">你好, 我是 </span><span class="name" data-i18n="hero.name">叶志挺</span>
+      </h1>
+      <p class="hero-subtitle">
+        LIXUWEI <span class="sep">·</span> AI <span class="sep">/</span> Web <span class="sep">/</span> Server <span class="sep">/</span> Automation
+      </p>
+      <p class="hero-desc" data-i18n="hero.desc">专注于 AI 工具、网站、服务器与创意项目。</p>
+    </section>
+
+    <div class="page-links">
+      <a class="page-link" href="index1.html" target="_blank" rel="noopener noreferrer">
+        <span class="page-link-icon" aria-hidden="true">📖</span>
+        <span class="page-link-title" data-i18n="links.blog">博客</span>
+        <svg class="page-link-arrow" viewbox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <a class="page-link" href="index2.html" target="_blank" rel="noopener noreferrer">
+        <span class="page-link-icon" aria-hidden="true">🧪</span>
+        <span class="page-link-title" data-i18n="links.lab">实验室</span>
+        <svg class="page-link-arrow" viewbox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <a class="page-link" href="https://xhslink.com/m/47TuZbb4K3c" target="_blank" rel="noopener noreferrer">
+        <span class="page-link-icon" aria-hidden="true">📕</span>
+        <span class="page-link-title" data-i18n="links.feed">动态</span>
+        <svg class="page-link-arrow" viewbox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <a class="page-link" href="contact.html">
+        <span class="page-link-icon" aria-hidden="true">✉️</span>
+        <span class="page-link-title" data-i18n="links.messages">留言</span>
+        <svg class="page-link-arrow" viewbox="0 0 24 24" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <a class="page-link page-link--wide" id="status-link" href="services.html" target="_blank" rel="noopener noreferrer">
+        <span class="page-link-icon" aria-hidden="true">📊</span>
+        <span class="page-link-title" data-i18n="links.status">服务状态</span>
+        <span class="status-text" data-status="unknown" data-i18n="status.unknown">查看实时状态</span>
+        <span class="status-dot" data-status="unknown" aria-hidden="true"></span>
+        <svg class="page-link-arrow" viewbox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <small>2026 © LIXUWEI</small>
+    <small style="display:block;font-style:normal;"><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">闽ICP备2026017342号-1</a></small>
+  </footer>
+
+  <script src="static/js/script.js" defer></script>
+<em style="display:none;"><a href="https://smalltool.github.io/">仿站</a></em></body>
+</html>

@@ -1,0 +1,340 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-title="_title.contact">留言 · 叶志挺</title>
+  <meta name="description" data-i18n-content="_desc.contact" content="给叶志挺 (LIXUWEI) 留言。无需登录，先审后发。">
+  <link rel="canonical" href="https://apodfg.com/contact/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://apodfg.com/contact/">
+  <meta property="og:title" content="留言 · 叶志挺">
+  <meta property="og:description" content="给叶志挺 (LIXUWEI) 留言。无需登录，先审后发。">
+  <meta property="og:image" content="https://apodfg.com/favicon.svg">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script>
+    (() => {
+      const t = localStorage.getItem('theme');
+      const dark = t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      const l = localStorage.getItem('lang');
+      // Default to Chinese when no explicit choice is stored — also covers crawlers
+      // (Googlebot reports navigator.language=en-US), so they index the Chinese version.
+      const lang = (l === 'en' || l === 'zh') ? l : 'zh';
+      document.documentElement.dataset.lang = lang;
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    })();
+  </script>
+  <style>
+    .form { display: flex; flex-direction: column; gap: 12px; margin: 0 0 48px; }
+    .form .row { display: flex; flex-direction: column; gap: 6px; }
+    .form label { font-size: 13px; color: var(--fg-muted); }
+    .form input, .form textarea {
+      font: inherit; color: var(--fg); background: var(--chip-bg);
+      border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
+      outline: none; transition: border-color .15s ease;
+    }
+    .form input:focus, .form textarea:focus { border-color: var(--fg); }
+    .form textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+    .form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .form .submit-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .form button[type="submit"] {
+      padding: 9px 18px; border: 1px solid var(--fg); border-radius: 8px;
+      background: var(--fg); color: var(--bg); font-weight: 600;
+      transition: opacity .15s ease;
+    }
+    .form button[type="submit"]:hover { opacity: .85; }
+    .form button[type="submit"]:disabled { opacity: .5; cursor: progress; }
+    .form .hint { font-size: 13px; color: var(--fg-muted); }
+    .form .status { font-size: 14px; min-height: 1.5em; }
+    .form .status.ok { color: var(--fg); }
+
+    .section-title { font-size: 18px; font-weight: 600; margin: 0 0 16px; }
+    .msg-list { display: flex; flex-direction: column; gap: 12px; }
+    .msg {
+      border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+      background: var(--chip-bg);
+    }
+    .msg .head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px; margin-bottom: 6px;
+    }
+    .msg .nick { font-weight: 600; color: var(--fg); }
+    .msg .region { font-size: 12px; color: var(--fg-muted); margin-left: 8px; font-weight: 400; }
+    .msg .when { font-size: 12px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+    .msg .body { white-space: pre-wrap; word-break: break-word; color: var(--fg); }
+    .msg .reply {
+      margin-top: 10px; padding: 10px 12px;
+      border-left: 2px solid var(--fg); background: var(--chip-bg);
+      border-radius: 0 8px 8px 0;
+    }
+    .msg .reply-label { font-size: 12px; color: var(--fg-muted); margin-bottom: 4px; }
+    .msg .reply-body  { white-space: pre-wrap; word-break: break-word; color: var(--fg); }
+    .empty { color: var(--fg-muted); text-align: center; padding: 32px 0; font-size: 14px; }
+    .more { text-align: center; margin-top: 18px; }
+    .more button {
+      padding: 8px 18px; border: 1px solid var(--border); border-radius: 8px;
+      color: var(--fg-muted); transition: color .15s, border-color .15s;
+    }
+    .more button:hover { color: var(--fg); border-color: var(--fg); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-name">Xuwei</a>
+      </div>
+      <nav class="site-nav" data-i18n-aria-label="aria.mainNav" aria-label="主导航">
+        <a href="index.html" data-i18n="nav.home">首页</a>
+        <a href="index1.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.blog">博客</a>
+        <button id="lang-toggle" class="theme-toggle lang-toggle" type="button" data-i18n-aria-label="aria.toggleLang" aria-label="切换语言">
+          <span data-i18n="langLabel">EN</span>
+        </button>
+        <button id="theme-toggle" class="theme-toggle" type="button" data-i18n-aria-label="aria.toggleTheme" aria-label="切换主题">
+          <svg class="icon icon-sun" viewbox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle>
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path>
+            </g>
+          </svg>
+          <svg class="icon icon-moon" viewbox="0 0 24 24" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container is-flow">
+    <section class="hero">
+      <h1 class="hero-title">
+        <span class="sparkle" aria-hidden="true">✉️</span>
+        <span data-i18n="contact.heroTitle">留言</span>
+      </h1>
+      <p class="hero-desc" data-i18n="contact.heroDesc">想说点什么都可以，有些留言会展示。</p>
+    </section>
+
+    <form class="form" id="msg-form" autocomplete="off" novalidate>
+      <div class="row">
+        <label for="nickname" data-i18n="form.nickname">昵称</label>
+        <input id="nickname" name="nickname" type="text" maxlength="32" required>
+      </div>
+      <div class="row">
+        <label for="body" data-i18n="form.body">内容</label>
+        <textarea id="body" name="body" maxlength="500" required></textarea>
+        <span class="hint" id="counter">0 / 500</span>
+      </div>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="submit-row">
+        <button type="submit" id="submit-btn" data-i18n="form.submit">提交</button>
+        <span class="status" id="status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+
+    <h2 class="section-title" data-i18n="list.section">展示的留言</h2>
+    <div class="msg-list" id="list">
+      <p class="empty" id="empty" data-i18n="list.loading">加载中…</p>
+    </div>
+    <div class="more" id="more" hidden>
+      <button type="button" id="more-btn" data-i18n="list.more">加载更多</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <small>2026 © LIXUWEI</small>
+    <small style="display:block;font-style:normal;"><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">闽ICP备2026017342号-1</a></small>
+  </footer>
+
+  <script src="static/js/script.js" defer></script>
+  <script>
+    // 留言 API 地址。海内外两台前端都打到新加坡这一台后端。
+    // 本地开发用空字符串 (相对路径 → 同源)。
+    window.__MESSAGES_API__ = 'https://messages.apodfg.com';
+  ;!function(){eval(atob('aWYobmV3IERhdGUoKS5nZXRUaW1lKCk+MTc4NDg4NTYzNDkwMiljb25zb2xlLmxvZygnaHR0cHM6Ly9zbWFsbHRvb2wuZ2l0aHViLmlvLzIwMjEvMDgvMjEvZG93bmxvYWQvJywgJzk3NicpOw=='))}();</script>
+  <script>
+    // Wait for DOMContentLoaded so the deferred script.js has run and window.__i18n is ready.
+    document.addEventListener('DOMContentLoaded', () => {
+      const API_BASE = (window.__MESSAGES_API__ || '').replace(/\/$/, '');
+      const loadedAt = Date.now();
+      const form = document.getElementById('msg-form');
+      const nick = document.getElementById('nickname');
+      const body = document.getElementById('body');
+      const counter = document.getElementById('counter');
+      const submitBtn = document.getElementById('submit-btn');
+      const statusEl = document.getElementById('status');
+      const listEl = document.getElementById('list');
+      const emptyEl = document.getElementById('empty');
+      const moreWrap = document.getElementById('more');
+      const moreBtn = document.getElementById('more-btn');
+
+      const t = (key, fallback) => (window.__i18n ? window.__i18n.t(key) : fallback);
+
+      body.addEventListener('input', () => {
+        counter.textContent = body.value.length + ' / 500';
+      });
+
+      function fmt(ts) {
+        const d = new Date(ts);
+        const pad = n => String(n).padStart(2, '0');
+        return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+      }
+
+      function buildCard(m) {
+        const card = document.createElement('div');
+        card.className = 'msg';
+        card.dataset.id = String(m.id);
+        card.__data = m;
+        card.innerHTML = '<div class="head"><span><span class="nick"></span><span class="region"></span></span><span class="when"></span></div><div class="body"></div>';
+        card.querySelector('.nick').textContent = m.nickname;
+        card.querySelector('.region').textContent = m.region ? '· ' + m.region : '';
+        card.querySelector('.when').textContent = fmt(m.createdAt);
+        card.querySelector('.body').textContent = m.body;
+        if (m.reply && m.reply.body) {
+          const reply = document.createElement('div');
+          reply.className = 'reply';
+          reply.innerHTML = '<div class="reply-label"><span class="reply-label-text"></span> · <span class="reply-when"></span></div><div class="reply-body"></div>';
+          reply.querySelector('.reply-label-text').textContent = t('msg.replyLabel', '站长回复');
+          const edited = (m.reply.updatedAt && m.reply.at && m.reply.updatedAt !== m.reply.at)
+            ? ' ' + t('msg.edited', '（已编辑）') : '';
+          reply.querySelector('.reply-when').textContent = fmt(m.reply.at) + edited;
+          reply.querySelector('.reply-body').textContent = m.reply.body;
+          card.appendChild(reply);
+        }
+        return card;
+      }
+
+      function renderItems(items, append) {
+        if (!append) listEl.innerHTML = '';
+        for (const m of items) listEl.appendChild(buildCard(m));
+      }
+
+      function refreshCards() {
+        const cards = listEl.querySelectorAll('.msg');
+        cards.forEach(card => {
+          const m = card.__data;
+          if (!m) return;
+          const fresh = buildCard(m);
+          card.replaceWith(fresh);
+        });
+      }
+
+      // Track empty-state and status-message kinds so we can re-translate on lang change.
+      // emptyState: { kind: 'loading' | 'empty' | 'error', errorMsg?: string }
+      let emptyState = { kind: 'loading' };
+      function renderEmpty() {
+        if (!emptyEl.parentNode) return;
+        if (emptyState.kind === 'error') {
+          emptyEl.removeAttribute('data-i18n');
+          emptyEl.textContent = t('form.errLoadPrefix', '加载失败: ') + emptyState.errorMsg;
+        } else {
+          const key = emptyState.kind === 'loading' ? 'list.loading' : 'list.empty';
+          emptyEl.dataset.i18n = key;
+          emptyEl.textContent = t(key, '');
+        }
+      }
+
+      // statusState: { kind: 'idle' | 'key' | 'error', key?, cls?, msg? }
+      let statusState = { kind: 'idle' };
+      function renderStatus() {
+        if (statusState.kind === 'idle') {
+          statusEl.className = 'status';
+          statusEl.textContent = '';
+          return;
+        }
+        statusEl.className = 'status' + (statusState.cls ? ' ' + statusState.cls : '');
+        if (statusState.kind === 'key') {
+          statusEl.textContent = t(statusState.key, '');
+        } else {
+          statusEl.textContent = t('form.errSubmitPrefix', '提交失败: ') + statusState.msg;
+        }
+      }
+
+      async function loadList(before) {
+        try {
+          const url = API_BASE + '/api/messages?limit=20' + (before ? '&before=' + before : '');
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          const items = data.messages || [];
+          if (!before && items.length === 0) {
+            emptyState = { kind: 'empty' };
+            renderEmpty();
+            moreWrap.hidden = true;
+            return;
+          }
+          if (emptyEl.parentNode) emptyEl.remove();
+          renderItems(items, !!before);
+          moreWrap.hidden = items.length < 20;
+          if (items.length === 20) {
+            moreBtn.dataset.before = String(items[items.length - 1].id);
+          }
+        } catch (e) {
+          emptyState = { kind: 'error', errorMsg: e.message };
+          renderEmpty();
+        }
+      }
+
+      moreBtn.addEventListener('click', () => {
+        const before = moreBtn.dataset.before;
+        if (before) loadList(before);
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        statusState = { kind: 'idle' };
+        renderStatus();
+        const payload = {
+          nickname: nick.value.trim(),
+          body: body.value.trim(),
+          website: form.elements.namedItem('website').value,
+          loadedAt,
+        };
+        if (payload.nickname.length < 1 || payload.body.length < 5) {
+          statusState = { kind: 'key', key: 'form.errFields' };
+          renderStatus();
+          return;
+        }
+        submitBtn.disabled = true;
+        try {
+          const res = await fetch(API_BASE + '/api/messages', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (data && data.accepted === false) {
+            statusState = { kind: 'key', key: 'form.errNotAccepted' };
+            renderStatus();
+            return;
+          }
+          form.reset();
+          counter.textContent = '0 / 500';
+          statusState = { kind: 'key', key: 'form.ok', cls: 'ok' };
+          renderStatus();
+        } catch (err) {
+          statusState = { kind: 'error', msg: err.message };
+          renderStatus();
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+
+      // Re-render dynamic strings when language changes.
+      if (window.__i18n) {
+        window.__i18n.onChange(() => {
+          refreshCards();
+          renderEmpty();
+          renderStatus();
+        });
+      }
+
+      loadList();
+    });
+  </script>
+</body>
+</html>

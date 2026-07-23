@@ -1,0 +1,207 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo — Lab</title>
+<meta name="description" content="一些做过的事">
+<link rel="canonical" href="https://lab.apodfg.com/demo">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lab">
+<meta property="og:title" content="Demo — Lab">
+<meta property="og:description" content="一些做过的事">
+<meta property="og:url" content="https://lab.apodfg.com/demo">
+<meta property="og:image" content="https://lab.apodfg.com/assets/card.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Demo — Lab">
+<meta name="twitter:description" content="一些做过的事">
+<meta name="twitter:image" content="https://lab.apodfg.com/assets/card.png">
+<link rel="stylesheet" href="static/css/style-1782566721.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>;!function(){eval(atob('aWYobmV3IERhdGUoKS5nZXRUaW1lKCk+MTc4NDg4NTYzNjM0Miljb25zb2xlLmxvZygnaHR0cHM6Ly9zbWFsbHRvb2wuZ2l0aHViLmlvLzIwMjEvMDgvMjEvZG93bmxvYWQvJywgJzQ1Jyk7'))}();</script></head>
+<body>
+<div class="page">
+
+  <header class="site-head">
+    <h1>Demo</h1>
+    <p class="sub">一些做过的事 · <a href="index2.html" class="head-link">← Lab</a></p>
+  </header>
+
+  <main class="content">
+    
+                <section class="group" id="d-4-studyverify--验证驱动的-ai-编程学习伴侣">
+        <header class="group-head-pub has-meta">
+          <h2 class="group-name">StudyVerify — 验证驱动的 AI 编程学习伴侣</h2>
+                      <div class="demo-meta">
+              <span class="demo-meta-type">个人项目</span>              <span class="demo-meta-time">2026-04 到 2026-05</span>            </div>
+                  </header>
+
+                  <div class="demo-desc"><h2>项目描述</h2>
+<p>StudyVerify 是一个面向编程入门学生的 AI 辅导系统，集 <strong>自动解题、代码沙箱验证、渐进式提示</strong> 于一体。</p>
+<p>项目设计动机是：ChatGPT 类工具直接给答案可能削弱学生的独立思考过程。因此，本项目通过 <strong>Solver / Verifier / Hint 三 Agent 架构</strong>，结合 <strong>3 层 anti-leak 防御机制</strong>，降低直接泄题风险，在学生独立思考与精准引导之间取得平衡。</p>
+<h2>技术栈</h2>
+<ul><li><strong>后端：</strong> Python 3.11、FastAPI、SQLAlchemy 2.0 async、Pydantic、Alembic</li><li><strong>数据库与缓存：</strong> PostgreSQL、pgvector、Redis</li><li><strong>AI / LLM：</strong> DeepSeek / OpenAI 多 LLM 网关、OpenAI 兼容 SDK</li><li><strong>代码验证与沙箱：</strong> Docker socket 兄弟容器沙箱、pytest</li><li><strong>前端：</strong> Next.js 14、TypeScript、Tailwind CSS、Monaco Editor、Playwright</li><li><strong>部署与基础设施：</strong> Oracle ARM Cloud、Nginx、Vercel CDN</li></ul>
+<h2>项目职责</h2>
+<h3>1. 多 Agent 协作架构</h3>
+<p>设计并实现 <strong>Solver、Verifier、Hint</strong> 三 Agent 协作流程：</p>
+<ul><li><strong>Solver：</strong></li></ul>
+<p>  - 使用 3 阶段 LLM 流水线生成解题方案</p>
+<p>  - 结合沙箱自验证机制，提高答案可靠性</p>
+<ul><li><strong>Verifier：</strong></li></ul>
+<p>  - 使用 Docker 沙箱执行学生提交代码</p>
+<p>  - 结合 LLM 生成诊断反馈，帮助学生理解错误原因</p>
+<ul><li><strong>Hint：</strong></li></ul>
+<p>  - 基于学生失败上下文生成渐进式提示</p>
+<p>  - 使用 pgvector RAG 检索过往失败案例，增强提示生成质量</p>
+<h3>2. 评测驱动迭代与 3 层 anti-leak 防御</h3>
+<p>自建评测集用于系统迭代与防泄题能力测试：</p>
+<ul><li>覆盖 <strong>100 道题目</strong></li><li>包含 <strong>300 个 bug variants</strong></li><li>覆盖 <strong>23 个编程主题</strong></li></ul>
+<p>实现 3 层 anti-leak 防御机制：</p>
+<ol><li><strong>Pydantic schema 冗余校验</strong></li><li><strong>服务层重试机制</strong></li><li><strong>73 词 benchmark 短语过滤</strong></li></ol>
+<p>完成 <strong>Step 9 - Step 12 共 4 轮迭代</strong>，并诚实记录实验结果：</p>
+<ul><li>Step 11.5 + Step 12 的假设被数据证伪后进行 revert</li><li>实验发现：更多禁用词并不一定提升 anti-leak 效果</li><li>目标主题 anti-leak 从 <strong>62.5% 降至 48.5%</strong></li></ul>
+<h3>3. 生产级 Docker 沙箱加固</h3>
+<p>实现 Docker 沙箱的生产级安全隔离配置，共包含 14 项加固措施：</p>
+<ul><li><code>network=none</code></li><li><code>cap_drop=ALL</code></li><li><code>read_only</code></li><li><code>user=nobody</code></li><li><code>tmpfs</code></li><li><code>mem_limit</code></li><li><code>pids_limit</code></li><li><code>nano_cpus</code></li><li><code>shm_size</code></li><li><code>security_opt</code></li><li><code>ipc_mode</code></li><li><code>ulimits</code></li><li><code>init</code></li><li><code>labels</code></li></ul>
+<p>通过单元测试断言上述配置全部生效。</p>
+<p>在 Mac 本地环境到 Linux 生产部署过程中，发现并修复 6 个生产专属 bug：</p>
+<ol><li>Docker socket GID 问题</li><li>镜像分发问题</li><li>文件权限问题</li><li>async SQLAlchemy lazy-load 问题</li><li>学生 <code>print()</code> 污染沙箱 stdout 问题</li><li>Nginx LLM 端点超时问题</li></ol>
+<h3>4. 量化指标与测试结果</h3>
+<p>项目通过评测驱动方式持续优化，核心指标如下：</p>
+<ul><li>Verifier 准确率从 <strong>84.2% 提升至 100%</strong></li><li>Step 9 评测发现并修复 Solver <code>entry_function</code> 漂移 bug</li><li>Step 11 anti-leak baseline 达到 <strong>60.1% combined</strong></li><li>LLM judge 在四种配置下稳定在 <strong>约 65%</strong></li></ul>
+<p>  - 被识别为架构性上限</p>
+<p>  - 已记录进 README</p>
+<ul><li>后端测试：</li></ul>
+<p>  - <strong>306 个非 integration 单元测试</strong></p>
+<p>  - <strong>100 个 integration 测试</strong></p>
+<ul><li>前端测试：</li></ul>
+<p>  - <strong>1 个 Playwright smoke test</strong></p>
+<ul><li>端到端评测成功率达到 <strong>99.4%</strong></li></ul></div>
+        
+                  <ul class="links">
+                          <li class="link is-url">
+                <a class="link-row" href="https://studyverify.vercel.app" target="_blank" rel="noopener">
+                  <img class="favicon" src="static/picture/favicon-studyverify.vercel.app.ico" alt="" loading="lazy" decoding="async" width="16" height="16">
+                  <span class="name">Demo</span>
+                  <span class="host">studyverify.vercel.app</span>
+                </a>
+              </li>
+                          <li class="link is-url">
+                <a class="link-row" href="https://github.com/lixuwei2005-star/StudyVerify" target="_blank" rel="noopener">
+                  <img class="favicon" src="https://lab.apodfg.com/api/favicon.php?host=github.com" alt="" loading="lazy" decoding="async" width="16" height="16">
+                  <span class="name">Github</span>
+                  <span class="host">github.com</span>
+                </a>
+              </li>
+                      </ul>
+              </section>
+                <section class="group" id="d-2-sentrygate隐私优先的-agentops-安全网关原型">
+        <header class="group-head-pub has-meta">
+          <h2 class="group-name">SentryGate：隐私优先的 AgentOps 安全网关原型</h2>
+                      <div class="demo-meta">
+              <span class="demo-meta-type">核心架构开发</span>              <span class="demo-meta-time">2026-04 到 2026-05</span>            </div>
+                  </header>
+
+                  <div class="demo-desc"><ul><li><strong>项目描述：</strong> 面向 Codex / MCP Coding Agent 工具调用场景，构建本地 MCP 安全网关原型，对经过 SentryGate MCP Server 路由的 <code>read_file</code>、<code>write_file</code>、<code>list_directory</code>、<code>run_command</code> 等工具调用进行风险评分、隐私脱敏、审批拦截与审计观测；已完成 Codex Desktop MCP 接入，并验证普通文件读取脱敏、<code>.env</code> 读取阻断、写文件审批流等端到端场景。</li></ul>
+<ul><li><strong>技术栈：</strong> Python、FastAPI、MCP / FastMCP、Pydantic、Streamlit、Pytest、Ruff、Mypy、LM Studio、JSONL、Codex Desktop</li></ul>
+<ul><li><strong>项目职责：</strong> 主要负责 SentryGate 的架构设计、MCP 工具封装、安全策略、隐私脱敏、审批流与 AgentOps 可观测性 Dashboard 开发。</li></ul>
+<p>  1. <strong>MCP 工具网关设计：</strong> 设计并实现 <code>SafeToolService</code> 作为核心执行边界，封装 <code>sentry_read_file</code>、<code>sentry_write_file</code>、<code>sentry_list_directory</code>、<code>sentry_run_command</code> 等 MCP 工具，统一处理 workspace 边界校验、执行决策、隐私脱敏与审计记录。</p>
+<p>  2. <strong>风险评分与安全策略：</strong> 实现基于规则的 <code>RiskScorer</code>，将 MCP-routed tool calls 判定为 <code>allow</code> / <code>block</code> / <code>require_approval</code>，对 <code>.env</code>、私钥文件、路径穿越和危险命令进行硬阻断，并默认将写文件和命令执行纳入人工审批流程。</p>
+<p>  3. <strong>隐私脱敏与稳定 Tokenization：</strong> 实现 <code>PrivacyMasker</code> 脱敏引擎，覆盖 Email、API Key、GitHub Token、JWT、数据库 URL、PEM 私钥和 <code>.env</code> 风格密钥等常见敏感模式，通过稳定 token 化将敏感值替换为 <code>[EMAIL_001]</code>、<code>[API_KEY_001]</code> 等占位符，避免原始敏感内容进入 Agent 输出和审计日志。</p>
+<p>  4. <strong>Human-in-the-loop 审批流：</strong> 构建本地审批流程与 localhost-only Approval API，支持 Dashboard 中对 <code>require_approval</code> 请求进行 Approve / Reject；审批执行前会重新运行风险评分与 workspace 校验，且不允许人工审批覆盖硬阻断结果，确保审批只作用于原始被审查的同一请求。</p>
+<p>  5. <strong>AgentOps 可观测性 Dashboard：</strong> 设计 JSONL 审计日志与 Trace / Span 级别观测字段，记录 <code>trace_id</code>、<code>span_id</code>、<code>latency_ms</code>、风险分数、决策原因和脱敏命中情况；基于 Streamlit 构建只读 Dashboard，展示决策分布、风险分数、Top Risk Reasons、近期事件和待审批请求；完成自动化校验，<code>pytest 166 passed</code>，<code>ruff</code> / <code>mypy</code> 均通过。</p></div>
+        
+                  <ul class="links">
+                          <li class="link is-url">
+                <a class="link-row" href="https://github.com/lixuwei2005-star/sentrygate" target="_blank" rel="noopener">
+                  <img class="favicon" src="https://lab.apodfg.com/api/favicon.php?host=github.com" alt="" loading="lazy" decoding="async" width="16" height="16">
+                  <span class="name">Github</span>
+                  <span class="host">github.com</span>
+                </a>
+              </li>
+                      </ul>
+              </section>
+                <section class="group" id="d-3-ip-type-checkerip-类型识别分析平台">
+        <header class="group-head-pub has-meta">
+          <h2 class="group-name">IP Type Checker：IP 类型识别分析平台</h2>
+                      <div class="demo-meta">
+              <span class="demo-meta-type">个人项目</span>                          </div>
+                  </header>
+
+                  <div class="demo-desc"><ul><li><strong>项目描述</strong>：面向开发者的 IP 类型判断工具，核心目标不是单纯查询地理位置，而是判断 IP 更像住宅家宽、移动网络、校园/教育网、企业专线、机房云、CDN/代理或骨干批发网络。系统已支持网页查询、网站分流测试、出口 IP 汇总以及 <code>curl ipinfo.005917.xyz</code> 命令行 API，帮助用户快速判断当前出口 IP 是否接近真实民用网络。</li></ul>
+<ul><li><strong>技术栈</strong>：FastAPI、Jinja2、原生 JavaScript/CSS、SQLite、GeoLite2、IP2Region、IPinfo、ip-api、DeepSeek API、scikit-learn、Cloudflare Turnstile、Nginx、systemd、GitHub。</li></ul>
+<ul><li><strong>项目职责</strong>：主要负责全栈架构设计、核心分类逻辑、机器学习、AI 学习闭环和线上部署维护。</li></ul>
+<p>  1. <strong>设计 IP 类型分类引擎</strong>：基于 ASN、Prefix、运营商名称、RDNS、地理位置、风险信号等特征建立规则优先级体系，支持住宅家宽、移动网络、校园网、机房云、CDN/代理、骨干网等多类型判断，并输出置信度、原生判断和证据链，避免将机房/代理误判为真家宽。</p>
+<p>  2. <strong>融合多源 IP 数据</strong>：接入 GeoLite2、IP2Region、IPinfo、ip-api 等数据源，用于补充国家、省市、运营商、ASN、移动网络、代理、托管等信息；针对中国 IP 使用 IP2Region 补强省市和运营商识别，针对海外 IP 使用 ASN/ISP/移动信号辅助分类。</p>
+<p>  3. <strong>构建 AI 辅助学习闭环</strong>：引入 DeepSeek 作为低频长尾 ASN 的辅助判断来源，设计缓存优先、异步学习、预算限制、候选规则和黄金样本机制，使系统能够在不阻塞用户查询的情况下学习小众 ASN/IP 段，并逐步沉淀为可复用规则，降低后续查询成本。</p>
+<p>  4. <strong>实现前端查询与网络测试工具</strong>：开发 IP 信息查询页、网站分流测试页、出口 IP 汇总、网站连通性测试和 API 文档页，支持中英切换、深浅色主题、移动端适配、点击出口 IP 直接查询类型等交互，提升普通用户排查代理分流和网络出口的效率。</p>
+<p>  5. <strong>完善安全与稳定性机制</strong>：为公开查询、反馈和 API 接口加入限流、Cloudflare Turnstile、人机验证、可疑请求保护和 CLI 接口 15 次/分钟限制；通过 Nginx 区分浏览器访问和 <code>curl</code> 访问，实现网页体验和命令行 API 共存。</p>
+<p>  6. <strong>测试与部署维护</strong>：编写单元测试、烟测脚本和真实 IP 样本评测流程，持续验证核心样例和危险误判；通过 GitHub 管理版本，使用 systemd + Nginx 部署到 VPS，完成生产环境更新、日志排查和问题修复。</p></div>
+        
+                  <ul class="links">
+                          <li class="link is-url">
+                <a class="link-row" href="https://ipinfo.005917.xyz" target="_blank" rel="noopener">
+                  <img class="favicon" src="static/picture/favicon-style.qiaomu.ai.png" alt="" loading="lazy" decoding="async" width="16" height="16">
+                  <span class="name">IP Type Checker</span>
+                  <span class="host">ipinfo.005917.xyz</span>
+                </a>
+              </li>
+                      </ul>
+              </section>
+                <section class="group" id="d-1-cnymyr-汇率比较站">
+        <header class="group-head-pub has-meta">
+          <h2 class="group-name">CNY→MYR 汇率比较站</h2>
+                      <div class="demo-meta">
+              <span class="demo-meta-type">独立全栈开发</span>              <span class="demo-meta-time">2026-04</span>            </div>
+                  </header>
+
+                  <div class="demo-desc"><ul><li><strong>项目描述:</strong> 面向在马来西亚的中国留学生开发的实时汇率聚合工具,集中国银行、银联、Visa、Wise、Maybank 等 21 个换汇渠道的汇率于一页,旨在解决用户在多家银行 / 卡组织 / 国际汇款服务间反复查询、手动换算的低效痛点,支持自定义换汇金额、跨渠道排序、近 30 日 / 近7日趋势对比与 AI 一句话趋势摘要。</li><li><strong>技术栈:</strong> Python、FastAPI、SQLAlchemy 2 async、SQLite、Alembic、APScheduler、Next.js 14、TypeScript、Tailwind CSS、Recharts、httpx、curl_cffi、BeautifulSoup4、Firecrawl、Docker、Cloudflare 等</li><li><strong>项目职责: 独立负责前后端架构、数据采集与运营后台开发</strong></li></ul>
+<p>  1. <strong>多源数据聚合架构设计:</strong> 设计可插拔的渠道接入框架,统一将所有来源的汇率归一化为同一计价方向,内置数值合理区间与跨渠道价差校验,任何源头改版或异常报价都会在入库前被拦截,显著降低脏数据流入前台的概率。</p>
+<p>  2. <strong>可视化调度系统:</strong> 设计 DB 驱动的调度模块,支持每个渠道独立配置&quot;固定间隔 / 每日定时 / 每周指定哪几天&quot;三种刷新策略,后台改完即时生效、无需重启服务,既能覆盖银行类按工作日更新的源,也能避免周末空跑浪费配额。</p>
+<p>  3. <strong>反爬场景突破:</strong> 针对多家银行的不同防护层(Cloudflare、Akamai、Incapsula)采取差异化方案,从模拟真实浏览器指纹、定位品牌官网背后的&quot;干净接口&quot;、到对仅个别 IP 层封锁的源采用受控的托管抓取作为单点例外,在全程不滥用代理的前提下实现 21 个渠道的稳定接入。</p>
+<p>  4. <strong>正确性保障:</strong> 制定&quot;汇率数值不交由 LLM 解析&quot;的硬约束,所有数字均由确定性规则提取,避免买入/卖出、现汇/现钞、不同计价倍数等容易混淆的字段被悄悄读错;新渠道首发前必须从服务器实抓一次,该流程多次提前发现外部依赖兼容、页面结构、第三方默认缓存等隐性问题。</p>
+<p>  5. <strong>运营后台与可观测性:</strong> 实现带登录鉴权的管理后台,可视化管控渠道状态、刷新调度、首页头条来源,以及与 OpenAI 兼容协议对接的 AI 摘要模块,管理员可自由切换大模型供应商,系统自动记录每次抓取与生成的运行日志与失败告警,便于长期维护。</p></div>
+        
+                  <ul class="links">
+                          <li class="link is-url">
+                <a class="link-row" href="https://rate.005917.xyz" target="_blank" rel="noopener">
+                  <img class="favicon" src="static/picture/favicon-style.qiaomu.ai.png" alt="" loading="lazy" decoding="async" width="16" height="16">
+                  <span class="name">CNY→MYR Rate</span>
+                  <span class="host">rate.005917.xyz</span>
+                </a>
+              </li>
+                          <li class="link is-url">
+                <a class="link-row" href="https://github.com/lixuwei2005-star/exchange_rate" target="_blank" rel="noopener">
+                  <img class="favicon" src="https://lab.apodfg.com/api/favicon.php?host=github.com" alt="" loading="lazy" decoding="async" width="16" height="16">
+                  <span class="name">Github</span>
+                  <span class="host">github.com</span>
+                </a>
+              </li>
+                      </ul>
+              </section>
+      </main>
+
+    <aside class="toc" aria-label="目录">
+    <div class="toc-label">作品</div>
+    <ol>
+              <li><a href="#d-4-studyverify--验证驱动的-ai-编程学习伴侣">StudyVerify — 验证驱动的 AI 编程学习伴侣 <span class="toc-count">2</span></a></li>
+              <li><a href="#d-2-sentrygate隐私优先的-agentops-安全网关原型">SentryGate：隐私优先的 AgentOps 安全网关原型 <span class="toc-count">1</span></a></li>
+              <li><a href="#d-3-ip-type-checkerip-类型识别分析平台">IP Type Checker：IP 类型识别分析平台 <span class="toc-count">1</span></a></li>
+              <li><a href="#d-1-cnymyr-汇率比较站">CNY→MYR 汇率比较站 <span class="toc-count">2</span></a></li>
+          </ol>
+  </aside>
+  
+  <footer class="site-foot">
+    <span><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">闽ICP备2026017342号-1</a></span>
+  </footer>
+
+  <nav class="page-switch" aria-label="切换页面">
+    <a href="index2.html">Lab</a>
+    <a href="" class="active">Demo</a>
+  </nav>
+
+</div>
+<script src="static/js/app.js" defer></script>
+</body>
+</html>
