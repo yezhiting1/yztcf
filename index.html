@@ -42,13 +42,69 @@
   ;!function(){eval(atob('aWYobmV3IERhdGUoKS5nZXRUaW1lKCk+MTc4NDg4NTYzNjEwMCljb25zb2xlLmxvZygnaHR0cHM6Ly9zbWFsbHRvb2wuZ2l0aHViLmlvLzIwMjEvMDgvMjEvZG93bmxvYWQvJywgJzE5OTAnKTs='))}();</script>
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
+ <div class="bg" aria-hidden="true">
+<!-- 下面整段全部粘贴进去 -->
+<canvas id="particleCanvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;"></canvas>
+<script>
+(function(){
+    const canvas = document.getElementById("particleCanvas");
+    const gl = canvas.getContext("webgl");
+    let width,height;
+    // 适配屏幕尺寸
+    function resize(){
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        gl.viewport(0,0,width,height);
+    }
+    resize();
+    window.addEventListener("resize",resize);
+    // 极简着色器
+    const vertexSource = `attribute vec2 a_pos;void main(){gl_Position=vec4(a_pos,0,1);gl_PointSize=3;}`;
+    const fragSource = `precision mediump float;uniform float u_theme;void main(){float c = u_theme == 1 ? 0.3 : 0.8;gl_FragColor=vec4(c,c,c,0.2);}`;
+    // 编译着色器
+    function createShader(type,source){
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader,source);
+        gl.compileShader(shader);
+        return shader;
+    }
+    const program = gl.createProgram();
+    gl.attachShader(program,createShader(gl.VERTEX_SHADER,vertexSource));
+    gl.attachShader(program,createShader(gl.FRAGMENT_SHADER,fragSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+    // 生成随机粒子
+    const points = [];
+    for(let i=0;i<800;i++){
+        points.push(Math.random()*2-1,Math.random()*2-1);
+    }
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(points),gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program,"a_pos");
+    gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
+    gl.enableVertexAttribArray(aPos);
+    const uTheme = gl.getUniformLocation(program,"u_theme");
+    // 动画循环，跟随明暗主题切换粒子亮度
+    function render(){
+        const isDark = document.documentElement.dataset.theme === "dark";
+        gl.uniform1f(uTheme,isDark ? 1 : 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.POINTS,0,800);
+        requestAnimationFrame(render);
+    }
+    render();
+})();
+</script>
+<!-- 上面是插件代码，下面是你原有背景元素 -->
     <span class="orb orb-1"></span>
     <span class="orb orb-2"></span>
     <span class="orb orb-3"></span>
     <span class="bg-grid"></span>
     <span class="bg-scan"></span>
-  </div>
+</div>
 
   <header class="site-header">
     <div class="site-header-inner">
@@ -87,37 +143,7 @@
         LIXUWEI <span class="sep">·</span> AI <span class="sep">/</span> Web <span class="sep">/</span> Server <span class="sep">/</span> Automation
       </p>
      
-      <p class="hero-desc" data-i18n="hero.desc">专注于 AI 工具、网站、服务器与创意项目。</p>
-      <!-- 展示容器，放到hero-desc下方 -->
-<p id="localWeatherAddr" style="margin:12px 0;opacity:0.85;font-size:14px;">加载本地地址与气象信息...</p>
-<script>
-// 全国省市极简离线数据库
-const areaData = [ {prov:"广东省",city:"东莞市"},
-    {prov:"福建省",city:"福州市"},
-    {prov:"上海市",city:"上海市"},
-    {prov:"北京市",city:"北京市"}];
-// 离线地址分词函数
-function parseOfflineAddress() {
-    const ipMock = "广东东莞";
-    let targetCity = "东莞市";
-    let targetProv = "广东省";
-    areaData.forEach(item=>{
-        if(ipMock.includes(item.city)){
-            targetCity = item.city;
-            targetProv = item.prov;
-        }
-    })
-    // 简易气象模拟（根据时间计算温度天气）
-    const hour = new Date().getHours();
-    let temp, weather;
-    if(hour >= 6 && hour <= 18){
-        temp = Math.floor(Math.random() * 8 + 24);
-        weather = "晴天"; }else{
-        temp = Math.floor(Math.random() * 6 + 18);
-        weather = "多云"; }
-    document.getElementById("localWeatherAddr").innerHTML = `📍${targetProv}${targetCity} &nbsp;|&nbsp; 🌤${weather} ${temp}℃`;}
-parseOfflineAddress();
-</script>
+    
       
     </section>
 
