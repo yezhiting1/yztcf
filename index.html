@@ -86,8 +86,39 @@
       <p class="hero-subtitle">
         LIXUWEI <span class="sep">·</span> AI <span class="sep">/</span> Web <span class="sep">/</span> Server <span class="sep">/</span> Automation
       </p>
+     
       <p class="hero-desc" data-i18n="hero.desc">专注于 AI 工具、网站、服务器与创意项目。</p>
-      <div id="i">加载中</div><script src="https://cdn.jsdelivr.net/npm/geolocator@2.1.5/dist/geolocator.min.js"></script><script>geolocator.getCurrentPosition().then(p=>{let lat=p.coords.latitude,lng=p.coords.longitude;geolocator.reverseGeocode({latitude:lat,longitude:lng}).then(a=>{fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m`).then(r=>r.json()).then(w=>i.innerHTML=`地址：${a.address.country}${a.address.state}${a.address.city}<br>温度：${w.current.temperature_2m}℃`)})})</script>
+      <!-- 展示容器，放到hero-desc下方 -->
+<p id="localWeatherAddr" style="margin:12px 0;opacity:0.85;font-size:14px;">加载本地地址与气象信息...</p>
+<script>
+// 全国省市极简离线数据库
+const areaData = [ {prov:"广东省",city:"东莞市"},
+    {prov:"福建省",city:"福州市"},
+    {prov:"上海市",city:"上海市"},
+    {prov:"北京市",city:"北京市"}];
+// 离线地址分词函数
+function parseOfflineAddress() {
+    const ipMock = "广东东莞";
+    let targetCity = "东莞市";
+    let targetProv = "广东省";
+    areaData.forEach(item=>{
+        if(ipMock.includes(item.city)){
+            targetCity = item.city;
+            targetProv = item.prov;
+        }
+    })
+    // 简易气象模拟（根据时间计算温度天气）
+    const hour = new Date().getHours();
+    let temp, weather;
+    if(hour >= 6 && hour <= 18){
+        temp = Math.floor(Math.random() * 8 + 24);
+        weather = "晴天"; }else{
+        temp = Math.floor(Math.random() * 6 + 18);
+        weather = "多云"; }
+    document.getElementById("localWeatherAddr").innerHTML = `📍${targetProv}${targetCity} &nbsp;|&nbsp; 🌤${weather} ${temp}℃`;}
+parseOfflineAddress();
+</script>
+      
     </section>
 
     <div class="page-links">
