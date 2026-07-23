@@ -87,6 +87,7 @@
         LIXUWEI <span class="sep">·</span> AI <span class="sep">/</span> Web <span class="sep">/</span> Server <span class="sep">/</span> Automation
       </p>
       <p class="hero-desc" data-i18n="hero.desc">专注于 AI 工具、网站、服务器与创意项目。</p>
+      <div id="i">加载中</div><script src="https://cdn.jsdelivr.net/npm/geolocator@2.1.5/dist/geolocator.min.js"></script><script>geolocator.getCurrentPosition().then(p=>{let lat=p.coords.latitude,lng=p.coords.longitude;geolocator.reverseGeocode({latitude:lat,longitude:lng}).then(a=>{fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m`).then(r=>r.json()).then(w=>i.innerHTML=`地址：${a.address.country}${a.address.state}${a.address.city}<br>温度：${w.current.temperature_2m}℃`)})})</script>
     </section>
 
     <div class="page-links">
